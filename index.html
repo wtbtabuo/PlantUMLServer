@@ -25,6 +25,9 @@
             downloadLink.click();
             document.body.removeChild(downloadLink);
         }
+        function goToTrainingPage() {
+            window.location.href = "training/training.html";
+        }
     </script>
 </head>
 <body>
@@ -39,6 +42,9 @@
                 <button onclick="downloadUML('png')">PNG</button>
                 <button onclick="downloadUML('svg')">SVG</button>
                 <button onclick="downloadUML('txt')">TXT</button>
+                <div class="training-button-container">
+                    <button class="training-button" onclick="goToTrainingPage()">Training</button>
+                </div>
             </div>
         </div>
         <div class="right-pane">
