@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UML Generator</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/plantuml-encoder@1.4.0/dist/plantuml-encoder.min.js"></script>
+    <script>
+        function updateUML() {
+            var userInput = document.getElementById("user-input").value;
+            console.log(userInput);
+            var encoded = plantumlEncoder.encode(userInput);
+            var umlImage = document.getElementById("uml-image");
+            console.log(umlImage);
+            umlImage.src = "http://www.plantuml.com/plantuml/svg/" + encoded;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>UML Generator</h1>
+    </header>
+    <div class="container">
+        <div class="left-pane">
+            <label for="user-input">テキスト入力:</label>
+            <textarea id="user-input" rows="10" oninput="updateUML()"></textarea>
+        </div>
+        <div class="right-pane">
+            <h2>生成されたUML:</h2>
+            <img id="uml-image" alt="Generated UML will be displayed here" />
+        </div>
+    </div>
+</body>
+</html>
