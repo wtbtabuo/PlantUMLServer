@@ -1,4 +1,4 @@
-/* styles.css */
+/* styles/style.css */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -51,6 +51,17 @@ textarea {
     resize: none; /* サイズを変更できないようにする */
     overflow-x: auto; /* 横方向にスクロールできるようにする */
     white-space: nowrap; /* テキストを折り返さない */
+}
+
+.button-container {
+    margin-top: 10px;
+}
+
+button {
+    margin-right: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .right-pane {

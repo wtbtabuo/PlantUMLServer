@@ -9,11 +9,21 @@
     <script>
         function updateUML() {
             var userInput = document.getElementById("user-input").value;
-            console.log(userInput);
             var encoded = plantumlEncoder.encode(userInput);
             var umlImage = document.getElementById("uml-image");
-            console.log(umlImage);
             umlImage.src = "http://www.plantuml.com/plantuml/svg/" + encoded;
+            console.log("UML image src set to:", umlImage.src);
+        }
+
+        function downloadUML(format) {
+            var userInput = document.getElementById("user-input").value;
+            var encoded = plantumlEncoder.encode(userInput);
+            var downloadLink = document.createElement('a');
+            downloadLink.href = "http://www.plantuml.com/plantuml/" + format + "/" + encoded;
+            downloadLink.download = "uml_diagram." + format;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
         }
     </script>
 </head>
@@ -25,6 +35,11 @@
         <div class="left-pane">
             <label for="user-input">テキスト入力:</label>
             <textarea id="user-input" rows="10" oninput="updateUML()"></textarea>
+            <div class="button-container">
+                <button onclick="downloadUML('png')">PNG</button>
+                <button onclick="downloadUML('svg')">SVG</button>
+                <button onclick="downloadUML('txt')">TXT</button>
+            </div>
         </div>
         <div class="right-pane">
             <h2>生成されたUML:</h2>
