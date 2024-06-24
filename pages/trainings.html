@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<script>
+    function loadPHPData() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "trainings.php", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                document.getElementById("table-container").innerHTML = xhr.responseText;
+            }
+        };
+        xhr.send();
+    }
+    window.onload = loadPHPData;
+</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UML 問題集</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header>
+        <h1>UML 問題集</h1>
+    </header>
+    <div id="table-container"></div>
+</body>
+</html>
