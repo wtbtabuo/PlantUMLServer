@@ -27,16 +27,60 @@ if ($detail === null) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>項目の詳細</title>
     <link rel="stylesheet" href="styles/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/plantuml-encoder@1.4.0/dist/plantuml-encoder.min.js"></script>
+    <script>
+        function encodeUML(umlText) {
+            return plantumlEncoder.encode(umlText);
+        }
+
+        function updateUserSVG() {
+            var userInput = document.getElementById('umlInput').value;
+            var encoded = encodeUML(userInput);
+            var imgSrc = "http://www.plantuml.com/plantuml/svg/" + encoded;
+            document.getElementById('userSVG').src = imgSrc;
+        }
+
+        window.onload = function() {
+            var encoded = encodeUML(`<?php echo $detail['uml']; ?>`);
+            var imgSrc = "http://www.plantuml.com/plantuml/svg/" + encoded;
+            document.getElementById('jsonSVG').src = imgSrc;
+        };
+    </script>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+        }
+        .column {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        textarea {
+            width: 100%;
+            height: calc(50% - 40px); /* 画面の縦半分の高さ */
+            box-sizing: border-box;
+        }
+        iframe {
+            width: 100%;
+            height: calc(50% - 40px); /* 画面の縦半分の高さ */
+            border: none;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>項目の詳細</h1>
-    </header>
-    <div>
-        <p><strong>ID:</strong> <?php echo htmlspecialchars($detail['id']); ?></p>
-        <p><strong>Title:</strong> <?php echo htmlspecialchars($detail['title']); ?></p>
-        <p><strong>Theme:</strong> <?php echo htmlspecialchars($detail['theme']); ?></p>
-        <a href="javascript:history.back()">戻る</a>
+    <div class="column">
+        <h2>UML入力</h2>
+        <textarea id="umlInput" oninput="updateUserSVG()"></textarea>
+    </div>
+    <div class="column">
+        <h2>リアルタイムプレビュー</h2>
+        <iframe id="userSVG"></iframe>
+    </div>
+    <div class="column">
+        <h2>参考UML</h2>
+        <iframe id="jsonSVG"></iframe>
     </div>
 </body>
 </html>
