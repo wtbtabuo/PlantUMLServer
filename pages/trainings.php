@@ -8,9 +8,8 @@ $itemsPerPage = 5;
 // 現在のページ番号を取得（デフォルトは1）
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 
-// 表示する項目の開始位置と終了位置を計算
+// 表示する項目の開始位置を計算
 $start = ($page - 1) * $itemsPerPage;
-$end = $start + $itemsPerPage;
 
 // データの一部を抽出
 $pageData = array_slice($data, $start, $itemsPerPage);
@@ -39,19 +38,6 @@ $totalPages = ceil(count($data) / $itemsPerPage);
 </table>
 <div class="pagination">
     <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-        <a href="#" class="<?php echo $i == $page ? 'active' : ''; ?>" onclick="loadPage(<?php echo $i; ?>)"><?php echo $i; ?></a>
+        <a href="#" class="<?php echo $i == $page ? 'active' : ''; ?>" data-page="<?php echo $i; ?>"><?php echo $i; ?></a>
     <?php endfor; ?>
 </div>
-
-<script>
-    function loadPage(page) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "trainings.php?page=" + page, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                document.getElementById("table-container").innerHTML = xhr.responseText;
-            }
-        };
-        xhr.send();
-    }
-</script>

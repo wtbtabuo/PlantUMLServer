@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html lang="ja">
-<script>
-    function loadPHPData(page = 1) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "trainings.php?page=" + page, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                document.getElementById("table-container").innerHTML = xhr.responseText;
-            }
-        };
-        xhr.send();
-    }
-    window.onload = function() { loadPHPData(); };
-</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UML 問題集</title>
     <link rel="stylesheet" href="styles/style.css">
+    <script>
+        function loadPHPData(page = 1) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "trainings.php?page=" + page, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("table-container").innerHTML = xhr.responseText;
+                    attachPaginationHandlers(); // ページネーションのリンクにハンドラを再度アタッチ
+                }
+            };
+            xhr.send();
+        }
+        window.onload = function() { loadPHPData(); };
+
+        function attachPaginationHandlers() {
+            var links = document.querySelectorAll('.pagination a');
+            links.forEach(function(link) {
+                link.onclick = function(event) {
+                    event.preventDefault();
+                    var page = this.getAttribute('data-page');
+                    loadPHPData(page);
+                };
+            });
+        }
+    </script>
 </head>
 <body>
     <header>
