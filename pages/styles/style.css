@@ -67,3 +67,6 @@ button {
     font-size: 16px;
     cursor: pointer;
 }
+tbody tr {
+    cursor: pointer; /* カーソルが手の形になる */
+}

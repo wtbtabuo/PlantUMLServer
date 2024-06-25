@@ -28,7 +28,7 @@ $totalPages = ceil(count($data) / $itemsPerPage);
     </thead>
     <tbody>
         <?php foreach ($pageData as $item) : ?>
-            <tr>
+            <tr onclick="location.href='detail.php?id=<?php echo htmlspecialchars($item['id']); ?>'">
                 <td><?php echo htmlspecialchars($item['id']); ?></td>
                 <td><?php echo htmlspecialchars($item['title']); ?></td>
                 <td><?php echo htmlspecialchars($item['theme']); ?></td>
