@@ -62,6 +62,7 @@ if ($detail === null) {
             display: flex;
             height: 100vh;
             margin: 0;
+            align-items: stretch; /* 各カラムの高さを揃える */
         }
         .column {
             flex: 1;
@@ -114,8 +115,8 @@ if ($detail === null) {
         <iframe id="userSVG"></iframe>
     </div>
     <div class="column">
+        <h2 style="display:inline;">参考UML</h2>
         <div class="button-container">
-            <h2 style="display:inline;">参考UML</h2>
             <button onclick="showAnswerUML()">Answer UML</button>
             <button onclick="showAnswerCode()">Answer Code</button>
         </div>
