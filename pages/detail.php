@@ -44,7 +44,18 @@ if ($detail === null) {
             var encoded = encodeUML(`<?php echo $detail['uml']; ?>`);
             var imgSrc = "http://www.plantuml.com/plantuml/svg/" + encoded;
             document.getElementById('jsonSVG').src = imgSrc;
+            showAnswerUML();  // デフォルトでAnswer UMLを表示
         };
+
+        function showAnswerUML() {
+            document.getElementById('jsonSVGContainer').style.display = 'block';
+            document.getElementById('answerCodeContainer').style.display = 'none';
+        }
+
+        function showAnswerCode() {
+            document.getElementById('jsonSVGContainer').style.display = 'none';
+            document.getElementById('answerCodeContainer').style.display = 'block';
+        }
     </script>
     <style>
         body {
@@ -56,6 +67,8 @@ if ($detail === null) {
             flex: 1;
             padding: 20px;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
         textarea {
             width: 100%;
@@ -66,6 +79,28 @@ if ($detail === null) {
             width: 100%;
             height: calc(50% - 40px); /* 画面の縦半分の高さ */
             border: none;
+        }
+        button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .button-container {
+            text-align: right;
+        }
+        #answerCodeContainer {
+            display: none;
+            flex: 1;
+            overflow-y: auto;
+        }
+        #jsonSVGContainer {
+            flex: 1;
+            overflow-y: auto;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
     </style>
 </head>
@@ -79,8 +114,17 @@ if ($detail === null) {
         <iframe id="userSVG"></iframe>
     </div>
     <div class="column">
-        <h2>参考UML</h2>
-        <iframe id="jsonSVG"></iframe>
+        <div class="button-container">
+            <h2 style="display:inline;">参考UML</h2>
+            <button onclick="showAnswerUML()">Answer UML</button>
+            <button onclick="showAnswerCode()">Answer Code</button>
+        </div>
+        <div id="jsonSVGContainer">
+            <iframe id="jsonSVG"></iframe>
+        </div>
+        <div id="answerCodeContainer">
+            <pre><?php echo htmlspecialchars($detail['uml']); ?></pre>
+        </div>
     </div>
 </body>
 </html>
